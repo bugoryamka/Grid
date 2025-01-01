@@ -33,11 +33,7 @@ function setup() {
 
   // Slider setup
   slider = createSlider(0, cols * rows, 0, 1);
-  if (windowWidth < 768) {
-    slider.style('width', '200px'); // Smaller slider for smartphones
-  } else {
-    slider.style('width', '400px'); // Larger slider for desktops
-  }
+  slider.style('width', '400px');
   slider.position((windowWidth - slider.width) / 2, windowHeight - 100);
   slider.class("range-style");
 
@@ -99,11 +95,6 @@ function windowResized() {
   canvas = createCanvas(canvasWidth, canvasHeight);
   cellWidth = width / cols;
   cellHeight = height / rows;
-  if (windowWidth < 768) {
-    slider.style('width', '200px'); // Smaller slider for smartphones
-  } else {
-    slider.style('width', '400px'); // Larger slider for desktops
-  }
   slider.position((windowWidth - slider.width) / 2, windowHeight - 100);
   textAlign(CENTER, CENTER);
 }
