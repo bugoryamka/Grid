@@ -8,7 +8,7 @@ let circleAlphas = [];
 let textAlphas = []; // Opacity for the text numbers
 
 function setup() {
-  canvas = createCanvas(windowWidth/1.5, windowHeight/1.5);
+  canvas = createCanvas(windowWidth/3, windowHeight/1.5);
   
   cellWidth = width / cols;
   cellHeight = height / rows;
