@@ -8,8 +8,17 @@ let circleAlphas = [];
 let textAlphas = []; // Opacity for the text numbers
 
 function setup() {
-  canvas = createCanvas(windowWidth/2, windowHeight/1.5);
-  
+   let canvasWidth, canvasHeight;
+  if (windowWidth < 768) { // Condition for smartphones
+    canvasWidth = windowWidth / 1.5;
+    canvasHeight = windowHeight / 1.5;
+  } else { // Condition for desktops or larger screens
+    canvasWidth = windowWidth / 3;
+    canvasHeight = windowHeight / 1.5;
+  }
+
+  // Create canvas and attach it to the container
+  canvas = createCanvas(canvasWidth, canvasHeight);
   cellWidth = width / cols;
   cellHeight = height / rows;
   
@@ -69,7 +78,17 @@ function draw() {
 }
 
 function windowResized() {
-  createCanvas(windowWidth/2, windowHeight/1.5)
+   let canvasWidth, canvasHeight;
+  if (windowWidth < 768) { // Condition for smartphones
+    canvasWidth = windowWidth / 1.5;
+    canvasHeight = windowHeight / 1.5;
+  } else { // Condition for desktops or larger screens
+    canvasWidth = windowWidth / 3;
+    canvasHeight = windowHeight / 1.5;
+  }
+
+  // Create canvas and attach it to the container
+  canvas = createCanvas(canvasWidth, canvasHeight);
   cellWidth = width / cols;
   cellHeight = height / rows;
   slider.position(windowWidth / 2 - 200, windowHeight - 100);
