@@ -69,7 +69,7 @@ function draw() {
 }
 
 function windowResized() {
-  createCanvas(windowWidth/1.5, windowHeight/1.5)
+  createCanvas(windowWidth/3, windowHeight/1.5)
   cellWidth = width / cols;
   cellHeight = height / rows;
   slider.position(windowWidth / 2 - 200, windowHeight - 100);
