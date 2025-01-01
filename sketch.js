@@ -89,12 +89,10 @@ function windowResized() {
     // Condition for smartphones
     canvasWidth = windowWidth / 1.5;
     canvasHeight = windowHeight / 1.5;
-    sliderWidth = "200px";
   } else {
     // Condition for desktops or larger screens
     canvasWidth = windowWidth / 3;
     canvasHeight = windowHeight / 1.5;
-    sliderWidth = "400px";
   }
 
   // Create canvas and attach it to the container
