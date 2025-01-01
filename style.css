@@ -34,7 +34,7 @@ input[type='range']::-moz-range-thumb {
   padding: 20px;
   background: #e0e0e0; /* $primary */
   border-radius: 10px;
-  box-shadow: -2px -2px 15px rgba(255,255,255,0.4), 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: -2px -2px 15px rgba(255, 255, 255, 0.4), 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .range-style::-webkit-slider-runnable-track {
