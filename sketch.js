@@ -2,99 +2,118 @@ let cols = 5; // Number of columns
 let rows = 5; // Number of rows
 let cellWidth, cellHeight; // Cell dimensions
 let slider; // Slider for controlling visible elements
-
 let circleSizes = [];
 let circleAlphas = [];
 let textAlphas = []; // Opacity for the text numbers
 
 function setup() {
+  // Determine canvas size based on screen type
   let canvasWidth, canvasHeight;
-  if (windowWidth < 768) {
-    // Condition for smartphones
+  if (windowWidth < 768) { // Condition for smartphones
     canvasWidth = windowWidth / 1.5;
     canvasHeight = windowHeight / 1.5;
-  } else {
-    // Condition for desktops or larger screens
+  } else { // Condition for desktops or larger screens
     canvasWidth = windowWidth / 3;
     canvasHeight = windowHeight / 1.5;
   }
 
-  // Create canvas and attach it to the container
-  canvas = createCanvas(canvasWidth, canvasHeight);
-  cellWidth = width / cols;
-  cellHeight = height / rows;
-
-  // Load the Google Font (Make sure the link is included in your HTML file)
-  textFont("Quicksand"); // Use the Google font
-
-  // Set the text alignment and size
-  textAlign(CENTER, CENTER);
-  textSize(16);
+  // Create canvas
+  createCanvas(canvasWidth, canvasHeight);
 
   // Slider setup
   slider = createSlider(0, cols * rows, 0, 1);
-  slider.style('width', '400px');
-  slider.position((windowWidth - slider.width) / 2, windowHeight - 100);
+  
+  // Update slider width based on screen type
+  if (windowWidth < 768) {
+    slider.style('width', '200px'); // Smaller slider for smartphones
+  } else {
+    slider.style('width', '400px'); // Larger slider for desktops
+  }
+
+  // Center the slider horizontally and place it near the bottom
+  centerSlider();
   slider.class("range-style");
+
+  // Set font
+  textFont('Quicksand');
+  textAlign(CENTER, CENTER);
+
+  // Initialize grid
+  cellWidth = width / cols;
+  cellHeight = height / rows;
 
   // Initialize animation parameters
   for (let i = 0; i < cols * rows; i++) {
-    circleSizes[i] = 0; // Start with invisible circles
-    circleAlphas[i] = 0; // Fully transparent circles
-    textAlphas[i] = 0; // Fully transparent text
+    circleSizes[i] = 0;
+    circleAlphas[i] = 0;
+    textAlphas[i] = 0;
   }
 }
 
 function draw() {
   background(220);
 
-  let maxCounter = slider.value(); // Get slider value for the number of visible circles
+  const maxCounter = slider.value();
 
   for (let j = 0; j < rows; j++) {
     for (let i = 0; i < cols; i++) {
-      let index = j * cols + i; // Calculate index for 1D arrays
-      let x = cellWidth * i + cellWidth / 2;
-      let y = cellHeight * j + cellHeight / 2;
+      const index = j * cols + i;
+      const x = cellWidth * i + cellWidth / 2;
+      const y = cellHeight * j + cellHeight / 2;
 
-      // Animate the size and transparency of the circles and text
+      // Animate visibility
       if (index < maxCounter) {
-        circleSizes[index] = lerp(circleSizes[index], 30, 0.1); // Grow the circle
-        circleAlphas[index] = lerp(circleAlphas[index], 255, 0.1); // Fade in
-        textAlphas[index] = lerp(textAlphas[index], 255, 0.1); // Fade in text
+        circleSizes[index] = lerp(circleSizes[index], 30, 0.1);
+        circleAlphas[index] = lerp(circleAlphas[index], 255, 0.1);
+        textAlphas[index] = lerp(textAlphas[index], 255, 0.1);
       } else {
-        circleSizes[index] = lerp(circleSizes[index], 0, 0.1); // Shrink the circle
-        circleAlphas[index] = lerp(circleAlphas[index], 0, 0.1); // Fade out
-        textAlphas[index] = lerp(textAlphas[index], 0, 0.1); // Fade out text
+        circleSizes[index] = lerp(circleSizes[index], 0, 0.1);
+        circleAlphas[index] = lerp(circleAlphas[index], 0, 0.1);
+        textAlphas[index] = lerp(textAlphas[index], 0, 0.1);
       }
 
-      // Draw the circle with the current size and transparency
+      // Draw the circle
       fill(200, 200, 200, circleAlphas[index]);
       noStroke();
-      ellipse(x, y, circleSizes[index], circleSizes[index]);
+      ellipse(x, y, circleSizes[index]);
 
-      // Draw the number with animated opacity
+      // Draw the text
       fill(0, 0, 0, textAlphas[index]);
-      text(index + 1, x, y); // Start the numbers from 1
+      text(index + 1, x, y);
     }
   }
 }
 
 function windowResized() {
+  // Adjust canvas size and slider on window resize
   let canvasWidth, canvasHeight;
-  if (windowWidth < 768) {
-    // Condition for smartphones
+  if (windowWidth < 768) { // Condition for smartphones
     canvasWidth = windowWidth / 1.5;
     canvasHeight = windowHeight / 1.5;
-  } else {
-    // Condition for desktops or larger screens
+  } else { // Condition for desktops or larger screens
     canvasWidth = windowWidth / 3;
     canvasHeight = windowHeight / 1.5;
   }
 
-  // Create canvas and attach it to the container
-  canvas = createCanvas(canvasWidth, canvasHeight);
+  resizeCanvas(canvasWidth, canvasHeight);
+
+  // Recalculate grid dimensions
   cellWidth = width / cols;
   cellHeight = height / rows;
+
+  // Update slider size and position
+  if (windowWidth < 768) {
+    slider.style('width', '200px'); // Smaller slider for smartphones
+  } else {
+    slider.style('width', '400px'); // Larger slider for desktops
+  }
+
+  // Recalculate the slider's position after resizing
+  centerSlider();
+}
+
+// Function to center the slider
+function centerSlider() {
+  // Centering the slider horizontally
   slider.position((windowWidth - slider.width) / 2, windowHeight - 100);
-  textAlign(CENTER, CENTER);
 }
