@@ -25,13 +25,13 @@ function setup() {
 
   // Update slider width based on screen type
   if (windowWidth < 768) {
-    slider.style('width', '200px'); // Smaller slider for smartphones
+    slider.style('width', `${canvasWidth}px`); // Match canvas width for smartphones
   } else {
-    slider.style('width', '400px'); // Larger slider for desktops
+    slider.style('width', `${canvasWidth}px`); // Match canvas width for desktops
   }
 
-  // Center the slider horizontally and place it near the bottom
-  centerSlider();
+  // Center the slider horizontally with the canvas and place it near the bottom
+  alignSliderWithCanvas();
   slider.class("range-style");
 
   // Set font
@@ -101,22 +101,15 @@ function windowResized() {
   cellWidth = width / cols;
   cellHeight = height / rows;
 
-  // Update slider size and position
-  if (windowWidth < 768) {
-    slider.style('width', '200px'); // Smaller slider for smartphones
-  } else {
-    slider.style('width', '400px'); // Larger slider for desktops
-  }
-
-  // Recalculate the slider's position after resizing
-  centerSlider();
+  // Update slider size and alignment
+  slider.style('width', `${canvasWidth}px`); // Match canvas width
+  alignSliderWithCanvas();
 }
 
-// Function to center the slider
-function centerSlider() {
-  // Retrieve slider width
-  let sliderWidth = slider.elt.offsetWidth; // Use the actual slider element width
-  let sliderX = (windowWidth - sliderWidth) / 2; // Calculate horizontal center
-  let sliderY = windowHeight - 100; // Set vertical position near the bottom
+// Function to align the slider with the canvas
+function alignSliderWithCanvas() {
+  // Calculate horizontal and vertical position for the slider
+  const sliderX = (windowWidth - width) / 2; // Align slider horizontally with the canvas
+  const sliderY = height + (windowHeight - height) / 4 + height/8; // Position the slider below the canvas
   slider.position(sliderX, sliderY);
 }
