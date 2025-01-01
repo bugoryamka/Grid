@@ -22,7 +22,7 @@ function setup() {
 
   // Slider setup
   slider = createSlider(0, cols * rows, 0, 1);
-  
+
   // Update slider width based on screen type
   if (windowWidth < 768) {
     slider.style('width', '200px'); // Smaller slider for smartphones
@@ -114,6 +114,9 @@ function windowResized() {
 
 // Function to center the slider
 function centerSlider() {
-  // Centering the slider horizontally
-  slider.position((windowWidth - slider.width) / 2, windowHeight - 100);
+  // Retrieve slider width
+  let sliderWidth = slider.elt.offsetWidth; // Use the actual slider element width
+  let sliderX = (windowWidth - sliderWidth) / 2; // Calculate horizontal center
+  let sliderY = windowHeight - 100; // Set vertical position near the bottom
+  slider.position(sliderX, sliderY);
 }
