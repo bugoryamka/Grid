@@ -8,7 +8,7 @@ let circleAlphas = [];
 let textAlphas = []; // Opacity for the text numbers
 
 function setup() {
-  createCanvas(600, 600).position(windowWidth / 2 - 300, 100);
+  canvas = createCanvas(windowWidth/1.5, windowHeight/1.5);
   
   cellWidth = width / cols;
   cellHeight = height / rows;
@@ -22,7 +22,7 @@ function setup() {
 
   // Slider setup
   slider = createSlider(0, cols * rows, 0, 1);
-  slider.position(windowWidth / 2 - 200, windowHeight - 150); // Centering the slider
+  slider.position(windowWidth / 2 - 200, windowHeight - 100); // Centering the slider
   slider.class('range-style');
   
   // Initialize animation parameters
@@ -69,8 +69,9 @@ function draw() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth/1.5, windowHeight/1.5)
   cellWidth = width / cols;
   cellHeight = height / rows;
-  slider.position(width / 2 - 200, height - 50); // Keep slider centered
+  slider.position(windowWidth / 2 - 200, windowHeight - 100);
+  textAlign(CENTER, CENTER);
 }
