@@ -8,11 +8,13 @@ let circleAlphas = [];
 let textAlphas = []; // Opacity for the text numbers
 
 function setup() {
-   let canvasWidth, canvasHeight;
-  if (windowWidth < 768) { // Condition for smartphones
+  let canvasWidth, canvasHeight;
+  if (windowWidth < 768) {
+    // Condition for smartphones
     canvasWidth = windowWidth / 1.5;
     canvasHeight = windowHeight / 1.5;
-  } else { // Condition for desktops or larger screens
+  } else {
+    // Condition for desktops or larger screens
     canvasWidth = windowWidth / 3;
     canvasHeight = windowHeight / 1.5;
   }
@@ -21,9 +23,9 @@ function setup() {
   canvas = createCanvas(canvasWidth, canvasHeight);
   cellWidth = width / cols;
   cellHeight = height / rows;
-  
+
   // Load the Google Font (Make sure the link is included in your HTML file)
-  textFont('Quicksand');  // Use the Google font
+  textFont("Quicksand"); // Use the Google font
 
   // Set the text alignment and size
   textAlign(CENTER, CENTER);
@@ -31,9 +33,14 @@ function setup() {
 
   // Slider setup
   slider = createSlider(0, cols * rows, 0, 1);
-  slider.position(windowWidth / 2 - 200, windowHeight - 100); // Centering the slider
-  slider.class('range-style');
-  
+  if (windowWidth < 768) {
+    slider.style('width', '200px'); // Smaller slider for smartphones
+  } else {
+    slider.style('width', '400px'); // Larger slider for desktops
+  }
+  slider.position((windowWidth - slider.width) / 2, windowHeight - 100);
+  slider.class("range-style");
+
   // Initialize animation parameters
   for (let i = 0; i < cols * rows; i++) {
     circleSizes[i] = 0; // Start with invisible circles
@@ -42,12 +49,11 @@ function setup() {
   }
 }
 
-
 function draw() {
   background(220);
-  
+
   let maxCounter = slider.value(); // Get slider value for the number of visible circles
-  
+
   for (let j = 0; j < rows; j++) {
     for (let i = 0; i < cols; i++) {
       let index = j * cols + i; // Calculate index for 1D arrays
@@ -78,19 +84,28 @@ function draw() {
 }
 
 function windowResized() {
-   let canvasWidth, canvasHeight;
-  if (windowWidth < 768) { // Condition for smartphones
+  let canvasWidth, canvasHeight;
+  if (windowWidth < 768) {
+    // Condition for smartphones
     canvasWidth = windowWidth / 1.5;
     canvasHeight = windowHeight / 1.5;
-  } else { // Condition for desktops or larger screens
+    sliderWidth = "200px";
+  } else {
+    // Condition for desktops or larger screens
     canvasWidth = windowWidth / 3;
     canvasHeight = windowHeight / 1.5;
+    sliderWidth = "400px";
   }
 
   // Create canvas and attach it to the container
   canvas = createCanvas(canvasWidth, canvasHeight);
   cellWidth = width / cols;
   cellHeight = height / rows;
-  slider.position(windowWidth / 2 - 200, windowHeight - 100);
+  if (windowWidth < 768) {
+    slider.style('width', '200px'); // Smaller slider for smartphones
+  } else {
+    slider.style('width', '400px'); // Larger slider for desktops
+  }
+  slider.position((windowWidth - slider.width) / 2, windowHeight - 100);
   textAlign(CENTER, CENTER);
 }
